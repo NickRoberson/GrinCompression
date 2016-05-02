@@ -17,9 +17,9 @@ public class Node implements Comparable<Node> {
 	}
 
 	public int compareTo(Node o) {
-		if(o.freq > this.freq){
+		if (o.freq > this.freq) {
 			return -1;
-		}else if (o.freq < this.freq){
+		} else if (o.freq < this.freq) {
 			return 1;
 		}
 		return 0;

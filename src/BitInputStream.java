@@ -23,7 +23,7 @@ public class BitInputStream {
 
 	/** @return true iff the stream has bits left to produce */
 	public boolean hasBits() {
-		return digits == -1;
+		return !(digits == -1);
 	}
 
 	/**
