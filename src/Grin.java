@@ -25,7 +25,9 @@ public class Grin {
 		//System.out.println(htree.root.freq);
 
 		htree.encode(input, output);
-
+		input = new BitInputStream(outfile);
+		output = new BitOutputStream("src/decoded.txt");
+		htree.decode(input, output);
 		/**
 		 * String command = args[1]; String infile = args[2]; String outfile =
 		 * args[3];

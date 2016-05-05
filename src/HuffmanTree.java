@@ -39,40 +39,43 @@ public class HuffmanTree {
 	}
 
 	public void encode(BitInputStream in, BitOutputStream out) {
-		Map<Short, List<Integer>> huffMap = buildHuffMap();
+		Map<Short, String> huffMap = buildHuffMap();
 		Short ch;
-		List<Integer> huffCode;
+		String huffCode;
 		while (in.hasBits()) {
 			// store ch and according huffCode
 			ch = (short) in.readBits(8);
 			huffCode = huffMap.get(ch);
 			System.out.print(ch);
 			// write chars huffCode to outfile
-			for (int bit : huffCode) {
-				System.out.print(" " + bit);
-				out.writeBit(bit);
+			for (char c : huffCode.toCharArray()) {
+				System.out.print(" " + c);
+				if (c == '0') {
+					out.writeBit(0);
+				} else {
+					out.writeBit(1);
+				}
 			}
 			System.out.println();
 		}
 	}
 
-	private Map<Short, List<Integer>> buildHuffMap() {
-		List<Integer> huffCode = new ArrayList<>();
-		Map<Short, List<Integer>> huffMap = new HashMap<>();
+	private Map<Short, String> buildHuffMap() {
+		String huffCode = "";
+		Map<Short, String> huffMap = new HashMap<>();
 		buildHuffMapH(root, huffMap, huffCode);
 		return huffMap;
 	}
 
-	private void buildHuffMapH(Node cur, Map<Short, List<Integer>> huffMap, List<Integer> huffCode) {
+	private void buildHuffMapH(Node cur, Map<Short, String> huffMap, String huffCode) {
 		if (cur.ch != null) {
 			huffMap.put(cur.ch, huffCode);
 		} else {
 
 			// create corresponding left and right huffcodes
-			List<Integer> leftHuffCode = huffCode;
-			leftHuffCode.add(0);
-			List<Integer> rightHuffCode = huffCode;
-			rightHuffCode.add(1);
+			String leftHuffCode = huffCode + "0";
+
+			String rightHuffCode = huffCode + "1";
 
 			// traverse each subtree
 			buildHuffMapH(cur.left, huffMap, leftHuffCode);
@@ -96,8 +99,9 @@ public class HuffmanTree {
 	}
 
 	public void decode(BitInputStream in, BitOutputStream out) {
+		Short ch = 0;
 		while (in.hasBits()) {
-			Short ch = decodeH(root, in);
+			ch = decodeH(root, in);
 			out.writeBits(ch, 8);
 		}
 	}
