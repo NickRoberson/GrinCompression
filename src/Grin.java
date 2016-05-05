@@ -19,7 +19,10 @@ public class Grin {
 		BitOutputStream output = new BitOutputStream(outfile);
 
 		HuffmanTree.addAllChars(huff, input);
+		
+		input = new BitInputStream(infile);
 		HuffmanTree htree = new HuffmanTree(huff);
+		//System.out.println(htree.root.freq);
 
 		htree.encode(input, output);
 

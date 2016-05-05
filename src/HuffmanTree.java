@@ -46,32 +46,34 @@ public class HuffmanTree {
 			// store ch and according huffCode
 			ch = (short) in.readBits(8);
 			huffCode = huffMap.get(ch);
-			
-			System.out.println(huffCode.toArray().toString());
+			System.out.print(ch);
 			// write chars huffCode to outfile
 			for (int bit : huffCode) {
+				System.out.print(" " + bit);
 				out.writeBit(bit);
 			}
+			System.out.println();
 		}
 	}
-	
+
 	private Map<Short, List<Integer>> buildHuffMap() {
-		List <Integer> huffCode = new ArrayList<>();
-		Map<Short, List<Integer>>  huffMap = new HashMap<>();
+		List<Integer> huffCode = new ArrayList<>();
+		Map<Short, List<Integer>> huffMap = new HashMap<>();
 		buildHuffMapH(root, huffMap, huffCode);
 		return huffMap;
 	}
-	
+
 	private void buildHuffMapH(Node cur, Map<Short, List<Integer>> huffMap, List<Integer> huffCode) {
-		if (cur.ch != null) { huffMap.put(cur.ch, huffCode); }
-		else {
-			
+		if (cur.ch != null) {
+			huffMap.put(cur.ch, huffCode);
+		} else {
+
 			// create corresponding left and right huffcodes
 			List<Integer> leftHuffCode = huffCode;
 			leftHuffCode.add(0);
 			List<Integer> rightHuffCode = huffCode;
 			rightHuffCode.add(1);
-			
+
 			// traverse each subtree
 			buildHuffMapH(cur.left, huffMap, leftHuffCode);
 			buildHuffMapH(cur.right, huffMap, rightHuffCode);
