@@ -4,30 +4,29 @@ import java.util.Map;
 
 public class Grin {
 
-    public static void main(String[] args) throws IOException {
+	public static void main(String[] args) throws IOException {
 
-	/**
-	 * if (args.length != 4) { System.out.println(
-	 * "Not enough arguments, program exiting."); System.exit(1); }
-	 **/
+		/**
+		 * if (args.length != 4) { System.out.println(
+		 * "Not enough arguments, program exiting."); System.exit(1); }
+		 **/
 
-	Map<Short, Integer> huff = new HashMap<Short, Integer>();
+		Map<Short, Integer> huff = new HashMap<Short, Integer>();
 
-	String infile = "src/encoded.txt";
-	String outfile = "src/decoded.txt";
-	BitInputStream input = new BitInputStream(infile);
-	BitOutputStream output = new BitOutputStream(outfile);
+		String infile = "src/plaintext.txt";
+		String outfile = "src/encoded.grin";
+		BitInputStream input = new BitInputStream(infile);
+		BitOutputStream output = new BitOutputStream(outfile);
 
-	HuffmanTree.addAllChars(huff, input);
-	HuffmanTree htree = new HuffmanTree(huff);
-	
-	htree.decode(input, output);
+		HuffmanTree.addAllChars(huff, input);
+		HuffmanTree htree = new HuffmanTree(huff);
 
-	/**
-	 * String command = args[1]; String infile = args[2]; String outfile =
-	 * args[3];
-	 **/
-	
+		htree.encode(input, output);
 
-    }
+		/**
+		 * String command = args[1]; String infile = args[2]; String outfile =
+		 * args[3];
+		 **/
+
+	}
 }
