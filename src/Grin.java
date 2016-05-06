@@ -6,47 +6,25 @@ public class Grin {
 
     public static void main(String[] args) throws IOException {
 
-//	if (args.length != 4) {
-//	    System.out.println("Not enough arguments, program exiting.");
-//	    System.exit(1);
-//	}
+	if (args.length != 3) {
+	    System.out.println("Not enough arguments, program exiting.");
+	    System.exit(1);
+	}
+	String option = args[0];
+	String infile = args[1];
+	String outfile = args[2];
 
-	Map<Short, Integer> huff = new HashMap<Short, Integer>();
+	GrinEncoder encoder = new GrinEncoder();
+	GrinDecoder decoder = new GrinDecoder();
 
-	//String option = args[1];
-	
-	//String infile = args[2];
-	//String outfile = args[3];
-	
-	
-	String infile = "src/plaintext.txt";
-	String outfile = "src/encoded.grin";
-	BitInputStream input = new BitInputStream(infile);
-	BitOutputStream output = new BitOutputStream(outfile);
+	// Determine whether or not we want to encode or decode.
+	if (option.toLowerCase().equals("encode")) {
+	    encoder.encode(infile, outfile);
+	} else if (option.toLowerCase().equals("decode")) {
+	    decoder.decode(infile, outfile);
+	} else {
+	    throw new IOException("invalid encode/decode command");
+	}
 
-	HuffmanTree.addAllChars(huff, input);
-
-	input = new BitInputStream(infile);
-	HuffmanTree htree = new HuffmanTree(huff);
-	
-	htree.encode(input, output);
-	input.close();
-	output.close();
-	
-	input = new BitInputStream(outfile);
-	output = new BitOutputStream("src/decoded.txt");
-	
-	htree.decode(input, output);
-	input.close();
-	output.close();
-	
-	
-//	if (option.toLowerCase().equals("encode")) {
-//	    htree.encode(input, output);
-//	} else if (option.toLowerCase().equals("decode")) {
-//	    htree.decode(input, output);
-//	} else {
-//	    throw new IOException("invalid encode/decode command");
-//	}
     }
 }

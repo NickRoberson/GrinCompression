@@ -12,6 +12,7 @@ public class GrinDecoder {
 
 		// parse header
 		int magicNumber = in.readBits(32);
+		
 		if (magicNumber != 1846) {
 			throw new IllegalArgumentException("Not a valid .grin file");
 		}
@@ -30,6 +31,8 @@ public class GrinDecoder {
 		// construct a huffman tree from frequency map
 		HuffmanTree hTree = new HuffmanTree(freqMap);
 		hTree.decode(in, out);
+		in.close();
+		out.close();
 	}
 
 }

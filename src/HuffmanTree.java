@@ -1,6 +1,4 @@
-import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 import java.util.PriorityQueue;
 
@@ -102,9 +100,9 @@ public class HuffmanTree {
 	Short ch = 0;
 	while (in.hasBits()) {
 	    ch = decodeH(root, in);
-	    if (ch == 256) {
-		return;
-	    }
+	    // if (ch == 256) {
+	    // return;
+	    // }
 	    out.writeBits(ch, 8);
 	}
 
